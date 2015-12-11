@@ -11397,6 +11397,11 @@ with pkgs;
         kernelPatches.mips_fpu_sigill
         kernelPatches.mips_ext3_n32
       ];
+
+  };
+
+  linux_odroid_xu4 = callPackage ../os-specific/linux/kernel/linux-odroid_xu4.nix {
+    kernelPatches = [ kernelPatches.bridge_stp_helper ];
   };
 
   linux_rpi = callPackage ../os-specific/linux/kernel/linux-rpi.nix {
@@ -12056,6 +12061,11 @@ with pkgs;
   ubootNanonote = callPackage ../misc/uboot/nanonote.nix { };
 
   ubootGuruplug = callPackage ../misc/uboot/guruplug.nix { };
+
+  ubootOdroidXU4 = callPackage ../misc/uboot/odroid_xu4.nix {
+    bc = bc;
+    dtc = dtc;
+  };
 
   uclibc = callPackage ../os-specific/linux/uclibc { };
 
