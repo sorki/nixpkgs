@@ -31,7 +31,7 @@ let
       name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
 
       src = fetchFromGitHub {
-        owner = "zfsonlinux";
+        owner = "aither64";
         repo = "zfs";
         inherit rev sha256;
       };
@@ -160,10 +160,10 @@ in {
     incompatibleKernelVersion = null;
 
     # this package should point to a version / git revision compatible with the latest kernel release
-    version = "2017-12-28";
+    version = "2017-11-16.aither";
 
-    rev = "390d679acdfa6a2498280a4dcd33b7600ace27ce";
-    sha256 = "09lh1cpsf87yl1sr6inam5av60cy5wv89x6a952vfxrs64ph2m6n";
+    rev = "16148803eb0adb351b9a2c083729db9aca26f7bc";
+    sha256 = "0q2d93k4kg4y9ljk12qlkzlrv6sqild1ki2p9y794fawy9c1py6g";
     isUnstable = true;
 
     extraPatches = [
