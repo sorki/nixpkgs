@@ -19967,4 +19967,6 @@ with pkgs;
   };
 
   wal-g = callPackage ../tools/backup/wal-g {};
+
+  vpsadmind = callPackage ../servers/vpsadmin/vpsadmind {};
 }

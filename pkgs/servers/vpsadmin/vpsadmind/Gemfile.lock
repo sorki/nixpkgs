@@ -1,0 +1,43 @@
+GIT
+  remote: https://github.com/sorki/vpsadmin/
+  revision: 1d5c2f43cde99f9e8c682ae7305a8f5b2f1b79f8
+  branch: devel
+  specs:
+    vpsadmind (2.9.0)
+      daemons
+      eventmachine
+      json
+      mail
+      mysql
+      pry-remote
+      require_all
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.2)
+    daemons (1.2.5)
+    eventmachine (1.2.5)
+    json (2.1.0)
+    mail (2.7.0)
+      mini_mime (>= 0.1.1)
+    method_source (0.9.0)
+    mini_mime (1.0.0)
+    mysql (2.9.1)
+    pry (0.11.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-remote (0.1.8)
+      pry (~> 0.9)
+      slop (~> 3.0)
+    require_all (1.4.0)
+    slop (3.6.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  vpsadmind!
+
+BUNDLED WITH
+   1.14.6

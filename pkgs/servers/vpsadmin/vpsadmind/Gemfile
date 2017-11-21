@@ -1,0 +1,4 @@
+source 'https://rubygems.org/'
+git 'https://github.com/sorki/vpsadmin/', :branch => 'gemspec_executables' do
+  gem 'vpsadmind'
+end
