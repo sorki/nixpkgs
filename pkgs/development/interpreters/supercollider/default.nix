@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, cmake, pkgconfig
+{ pkgs, stdenv, fetchurl, cmake, pkgconfig
 , libjack2, libsndfile, fftw, curl, gcc
 , libXt, qtbase, qttools, qtwebkit, readline
 , useSCEL ? false, emacs

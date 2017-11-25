@@ -6793,6 +6793,10 @@ with pkgs;
   };
 
   supercollider_scel = supercollider.override { useSCEL = true; };
+  supercollider_sc3_plugins = callPackage ../development/interpreters/supercollider/sc3plugins.nix {};
+  supercollider-with-plugins = callPackage ../development/interpreters/supercollider/wrapper.nix {
+    plugins = [ supercollider_sc3_plugins ];
+  };
 
   taktuk = callPackage ../applications/networking/cluster/taktuk { };
 
