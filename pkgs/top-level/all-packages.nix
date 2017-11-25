@@ -19999,4 +19999,9 @@ with pkgs;
   };
 
   wal-g = callPackage ../tools/backup/wal-g {};
+  vcvrack = callPackage ../applications/audio/vcvrack {};
+  nanovg = callPackage ../development/libraries/nanovg {};
+  nanosvg = callPackage ../development/libraries/nanosvg {};
+  osdialog = callPackage ../development/libraries/osdialog {};
+  blendish = callPackage ../development/libraries/blendish {};
 }
