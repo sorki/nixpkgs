@@ -6,14 +6,19 @@ stdenv.mkDerivation rec {
   name = "vcvrack-${version}";
   version = "v0.5.0";
 
-  enableParallelBuilding = true;
-
+  #src = fetchFromGitHub {
+  #  owner = "VCVRack";
+  #  repo = "Rack";
+  #  rev = version;
+  #  sha256 = "0wcmzzsimkwvhs8rl2p48izjc4v78nl223bqwcv7nii9w40w5bwp";
+  #};
   src = fetchFromGitHub {
-    owner = "VCVRack";
+    owner = "sorki";
     repo = "Rack";
-    rev = version;
-    sha256 = "0wcmzzsimkwvhs8rl2p48izjc4v78nl223bqwcv7nii9w40w5bwp";
+    rev = "e1a81a44e400c23b5239d941e9cc4943009ea714";
+    sha256 = "0x5m6javx08i25yiswp75l75q6qbxjcbvwpda1py5hjdgf3c0zx0";
   };
+ 
 
   plugins = fetchFromGitHub {
     owner = "VCVRack";
@@ -46,19 +51,21 @@ stdenv.mkDerivation rec {
 
     sed -i 's|ext/nanovg/src/|${nanovg}/src/|g' Makefile
     sed -i 's|ext/osdialog/|${osdialog}/src/|g' Makefile
+    sed -i 's|<RtAudio.h>|<rtaudio/RtAudio.h>|g' src/core/AudioInterface.cpp
   '';
 
+  # XXX: fix hardcoded version
   buildPhase = ''
-    make
+    make VERSION=0.5.0
     mkdir plugins/Fundamental/
     cp -R ${plugins}/* plugins/Fundamental/
     make -C plugins/Fundamental dist
   '';
+
   installPhase = ''
-    ls .
-    mkdir -p $out/plugins
-    cp Rack $out/
-    cp Rack.sh $out/
+    mkdir -p $out/{bin,plugins}
+    cp Rack $out/bin/
+    cp Rack.sh $out/bin/
     cp -R plugins/Fundamental/dist/Fundamental $out/plugins/
   '';
 
