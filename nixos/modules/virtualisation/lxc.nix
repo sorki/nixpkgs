@@ -71,6 +71,7 @@ in
     environment.etc."lxc/lxc.conf".text = cfg.systemConfig;
     environment.etc."lxc/lxc-usernet".text = cfg.usernetConfig;
     environment.etc."lxc/default.conf".text = cfg.defaultConfig;
+    environment.etc."lxc/config".source = "${pkgs.lxc}/share/lxc/config";
     systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
 
     security.apparmor.packages = [ pkgs.lxc ];
