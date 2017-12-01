@@ -20055,4 +20055,7 @@ with pkgs;
   wal-g = callPackage ../tools/backup/wal-g {};
 
   tlwg = callPackage ../data/fonts/tlwg { };
+
+  osctl = callPackage ../servers/vpsadmin/osctl {};
+  osctld = callPackage ../servers/vpsadmin/osctld {};
 }
