@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.vpsfree.cz/
+  specs:
+    json (2.1.0)
+    osctld (0.1.0.build20171201182707)
+      json
+      ruby-lxc (~> 1.2.2)
+    ruby-lxc (1.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  osctld (= 0.1.0.build20171201182707)
+
+BUNDLED WITH
+   1.14.6
