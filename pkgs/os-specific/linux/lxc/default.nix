@@ -35,6 +35,11 @@ stdenv.mkDerivation rec {
           + "180c477a326ce85632249ff16990e8c29db1b6fa.patch";
       sha256 = "05jkiiixxk9ibj1fwzmy56rkkign28bd9mrmgiz12g92r2qahm2z";
     })
+    (fetchpatch {
+      url = "https://github.com/aither64/lxc/commit/"
+          + "f4e86dfad30099bae3ab093b81d147280996d29e.patch";
+      sha256 = "0ilc79c5rjhivzryb8lz4y0ifhxcjvlbzvd7gmjpq93b87pp278f";
+    })
   ];
 
   postPatch = ''
