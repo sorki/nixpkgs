@@ -19967,4 +19967,7 @@ with pkgs;
   };
 
   wal-g = callPackage ../tools/backup/wal-g {};
+
+  osctl = callPackage ../servers/vpsadmin/osctl {};
+  osctld = callPackage ../servers/vpsadmin/osctld {};
 }
