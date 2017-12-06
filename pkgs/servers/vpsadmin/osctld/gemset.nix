@@ -1,4 +1,12 @@
 {
+  ipaddress = {
+    source = {
+      remotes = ["https://rubygems.vpsfree.cz"];
+      sha256 = "1x86s0s11w202j6ka40jbmywkrx8fhq8xiy8mwvnkhllj57hqr45";
+      type = "gem";
+    };
+    version = "0.8.3";
+  };
   json = {
     source = {
       remotes = ["https://rubygems.vpsfree.cz"];
@@ -8,13 +16,13 @@
     version = "2.1.0";
   };
   osctld = {
-    dependencies = ["json" "ruby-lxc"];
+    dependencies = ["ipaddress" "json" "ruby-lxc"];
     source = {
       remotes = ["https://rubygems.vpsfree.cz"];
-      sha256 = "1rnb31y06gaxnzs4a2n1ybw81yn2fa22f7wkziqjk137p7rbzhnd";
+      sha256 = "0qxhhb2jg0f839zzamcms34v3zp75170vlaiax66wl6qw5m6zb4k";
       type = "gem";
     };
-    version = "0.1.0.build20171201182707";
+    version = "0.1.0.build20171206110912";
   };
   ruby-lxc = {
     source = {
