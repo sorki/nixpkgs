@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, perl, docbook2x
+{ stdenv, fetchFromGitHub, fetchurl, fetchpatch, autoreconfHook, pkgconfig, perl, docbook2x
 , docbook_xml_dtd_45, python3Packages
 
 # Optional Dependencies
@@ -14,9 +14,16 @@ stdenv.mkDerivation rec {
   name = "lxc-${version}";
   version = "2.1.0";
 
-  src = fetchurl {
-    url = "https://linuxcontainers.org/downloads/lxc/lxc-${version}.tar.gz";
-    sha256 = "1qld0gi19mximxm0qyr6vzav32gymhc7fvp0bzwv37j0b8q0fi1r";
+  #src = fetchurl {
+  #  url = "https://linuxcontainers.org/downloads/lxc/lxc-${version}.tar.gz";
+  #  sha256 = "1qld0gi19mximxm0qyr6vzav32gymhc7fvp0bzwv37j0b8q0fi1r";
+  #};
+
+  src = fetchFromGitHub {
+    owner = "aither64";
+    repo = "lxc";
+    rev = "1481f1145635be19867736c453820e0b0fd44b30";
+    sha256 = "1y5lszmp438012rz4awl2k435flsa3dzsfvc4ld2df64vyhj8dk6";
   };
 
   nativeBuildInputs = [
@@ -30,16 +37,25 @@ stdenv.mkDerivation rec {
   patches = [
     ./support-db2x.patch
     # Fix build error against glibc 2.26
-    (fetchpatch {
-      url = "https://github.com/lxc/lxc/commit/"
-          + "180c477a326ce85632249ff16990e8c29db1b6fa.patch";
-      sha256 = "05jkiiixxk9ibj1fwzmy56rkkign28bd9mrmgiz12g92r2qahm2z";
-    })
-    (fetchpatch {
-      url = "https://github.com/aither64/lxc/commit/"
-          + "f4e86dfad30099bae3ab093b81d147280996d29e.patch";
-      sha256 = "0ilc79c5rjhivzryb8lz4y0ifhxcjvlbzvd7gmjpq93b87pp278f";
-    })
+    # aither: appears to be in conflict with lxc.hook.start-host patch, doesn't seem
+    #   to be needed.
+    #(fetchpatch {
+    #  url = "https://github.com/lxc/lxc/commit/"
+    #      + "180c477a326ce85632249ff16990e8c29db1b6fa.patch";
+    #  sha256 = "05jkiiixxk9ibj1fwzmy56rkkign28bd9mrmgiz12g92r2qahm2z";
+    #})
+    # Call lxc.net.[i].script.up hook for non-root unprivileged CTs
+    #(fetchpatch {
+    #  url = "https://github.com/aither64/lxc/commit/"
+    #      + "f4e86dfad30099bae3ab093b81d147280996d29e.patch";
+    #  sha256 = "0ilc79c5rjhivzryb8lz4y0ifhxcjvlbzvd7gmjpq93b87pp278f";
+    #})
+    # Add lxc.hook.start-host
+    #(fetchpatch {
+    #  url = "https://github.com/aither64/lxc/commit/"
+    #      + "1481f1145635be19867736c453820e0b0fd44b30.patch";
+    #  sha256 = "1dxajawqnr6qskcimsqjfp9lny22873pj25znnmq684lhkcimpl4";
+    #})
   ];
 
   postPatch = ''
