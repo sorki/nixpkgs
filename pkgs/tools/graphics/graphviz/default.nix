@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   name = "graphviz-${version}";
 
   src = fetchurl {
-    url = "http://www.graphviz.org/pub/graphviz/ARCHIVE/${name}.tar.gz";
-    sha256 = "08d4ygkxz2f553bxj6087da56a23kx1khv0j8ycxa102vvx1hlna";
+    url = "https://gitlab.com/graphviz/graphviz/repository/stable_release_${version}/archive.tar.gz";
+    sha256 = "0c3942x3xxa8m2gxn4sdsjj9j22w3ycr8ilb0vkqgv6q7r7pvd2r";
   };
 
   hardeningDisable = [ "fortify" ];
