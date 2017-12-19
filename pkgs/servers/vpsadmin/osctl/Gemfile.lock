@@ -4,7 +4,7 @@ GEM
     gli (2.17.1)
     ipaddress (0.8.3)
     json (2.1.0)
-    osctl (0.1.0.build20171206110909)
+    osctl (0.1.0.build20171219170308)
       gli (~> 2.17.1)
       ipaddress (~> 0.8.3)
       json
@@ -13,7 +13,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  osctl (= 0.1.0.build20171206110909)
+  osctl (= 0.1.0.build20171219170308)
 
 BUNDLED WITH
    1.14.6

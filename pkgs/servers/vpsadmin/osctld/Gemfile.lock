@@ -3,7 +3,7 @@ GEM
   specs:
     ipaddress (0.8.3)
     json (2.1.0)
-    osctld (0.1.0.build20171206110912)
+    osctld (0.1.0.build20171219170311)
       ipaddress (~> 0.8.3)
       json
       ruby-lxc (~> 1.2.2)
@@ -13,7 +13,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  osctld (= 0.1.0.build20171206110912)
+  osctld (= 0.1.0.build20171219170311)
 
 BUNDLED WITH
    1.14.6
