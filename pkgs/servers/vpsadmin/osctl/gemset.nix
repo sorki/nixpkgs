@@ -27,9 +27,9 @@
     dependencies = ["gli" "ipaddress" "json"];
     source = {
       remotes = ["https://rubygems.vpsfree.cz"];
-      sha256 = "0zfw3vspb0axwqadw1ba1wn2wmi64c42mab1l3gjbdwbv7vv0j65";
+      sha256 = "1xi2xn89189pa0mc8fbyrb8plal30bpir6mq90ch2yzmfnri0gpx";
       type = "gem";
     };
-    version = "0.1.0.build20171206110909";
+    version = "0.1.0.build20171219170308";
   };
 }
