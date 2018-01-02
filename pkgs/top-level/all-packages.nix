@@ -3843,6 +3843,8 @@ with pkgs;
     libpng = libpng12;
   };
 
+  orbuculum = callPackage ../development/tools/misc/orbuculum { };
+
   olsrd = callPackage ../tools/networking/olsrd { };
 
   os-prober = callPackage ../tools/misc/os-prober {};
