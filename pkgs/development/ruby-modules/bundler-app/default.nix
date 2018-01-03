@@ -16,6 +16,9 @@
 , gemdir
   # Exes is the list of executables provided by the gems in the Gemfile
 , exes ? []
+  # Expected gem directory structure is man/manN/name.N where N is man section,
+  # e.g. man/man1/ls.1. Then set bundlerApp.manpages = [ "man1/ls.1" ].
+, manpages ? []
   # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
 , scripts ? []
 , ruby ? defs.ruby
@@ -37,6 +40,7 @@ in
    runCommand basicEnv.name cmdArgs ''
     mkdir -p $out/bin;
       ${(lib.concatMapStrings (x: "ln -s '${basicEnv}/bin/${x}' $out/bin/${x};\n") exes)}
+      ${(lib.concatMapStrings (x: "mkdir -p $out/share/man/$(dirname ${x});\nln -s '${basicEnv}/${ruby.gemPath}/gems/${basicEnv.name}/man/${x}' $out/share/man/${x};\n") manpages)}
       ${(lib.concatMapStrings (s: "makeWrapper $out/bin/$(basename ${s}) $srcdir/${s} " +
               "--set BUNDLE_GEMFILE ${basicEnv.confFiles}/Gemfile "+
               "--set BUNDLE_PATH ${basicEnv}/${ruby.gemPath} "+
