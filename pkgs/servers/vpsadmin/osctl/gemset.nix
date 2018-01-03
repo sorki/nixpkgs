@@ -7,6 +7,14 @@
     };
     version = "2.17.1";
   };
+  highline = {
+    source = {
+      remotes = ["https://rubygems.vpsfree.cz"];
+      sha256 = "01ib7jp85xjc4gh4jg0wyzllm46hwv8p0w1m4c75pbgi41fps50y";
+      type = "gem";
+    };
+    version = "1.7.10";
+  };
   ipaddress = {
     source = {
       remotes = ["https://rubygems.vpsfree.cz"];
@@ -24,12 +32,12 @@
     version = "2.1.0";
   };
   osctl = {
-    dependencies = ["gli" "ipaddress" "json"];
+    dependencies = ["gli" "highline" "ipaddress" "json"];
     source = {
       remotes = ["https://rubygems.vpsfree.cz"];
-      sha256 = "1xi2xn89189pa0mc8fbyrb8plal30bpir6mq90ch2yzmfnri0gpx";
+      sha256 = "1j4x59sgyzqc4wpzwjrdd71zm98dzydhcgh185f41rdsbrw5875i";
       type = "gem";
     };
-    version = "0.1.0.build20171219170308";
+    version = "0.1.0.build20180112083918";
   };
 }
