@@ -80,6 +80,14 @@ in
     buildInputs = [ curl ];
   };
 
+  curses = attrs: {
+    buildInputs = [ ncurses ];
+    buildFlags = [
+      "--with-cflags=-I${ncurses.dev}/include"
+      "--with-ldflags=-L${ncurses.out}/lib"
+    ];
+  };
+
   dep-selector-libgecode = attrs: {
     USE_SYSTEM_GECODE = true;
     postInstall = ''
