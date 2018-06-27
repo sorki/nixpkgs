@@ -545,6 +545,7 @@
   ./services/networking/openvpn.nix
   ./services/networking/ostinato.nix
   ./services/networking/owamp.nix
+  ./services/networking/packet_forwarder.nix
   ./services/networking/pdnsd.nix
   ./services/networking/polipo.nix
   ./services/networking/powerdns.nix
