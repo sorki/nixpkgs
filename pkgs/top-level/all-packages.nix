@@ -21115,4 +21115,8 @@ with pkgs;
   xml2rfc = callPackage ../tools/typesetting/xml2rfc { };
 
   mmark = callPackage ../tools/typesetting/mmark { };
+
+  lora_gateway = callPackage ../applications/networking/lora_gateway { };
+  packet_forwarder = callPackage ../applications/networking/packet_forwarder { };
+
 }
