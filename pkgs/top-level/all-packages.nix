@@ -21650,4 +21650,7 @@ with pkgs;
 
   powershell = callPackage ../shells/powershell { };
 
+  lora_gateway = callPackage ../applications/networking/lora_gateway { };
+  packet_forwarder = callPackage ../applications/networking/packet_forwarder { };
+
 }
