@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.networking.packet_forwarder;
+  # Get a submodule without any embedded metadata:
+  _filter = x: filterAttrs (k: v: k != "_module") x;
   mkLocalConf = conf:
     let
       asJSON = {
@@ -11,7 +13,7 @@ let
           gateway_ID = conf.gwid;
           servers = conf.servers;
           ref_latitude = conf.latitude;
-          ref_longituted = conf.longtitude;
+          ref_longitude = conf.longitude;
           ref_altitude = conf.altitude;
           contact_email = conf.contact_email;
           description = conf.description;
@@ -26,25 +28,25 @@ let
 
   server = { lib, pkgs, ...}: {
     options = {
-      address = mkOption {
+      server_address = mkOption {
         type = types.str;
         default = "router.eu.thethings.network";
         description = "Address";
       };
-
-      portUp = mkOption {
-        type = types.ints.positive;
-        default = 1700;
-        description = "Up port";
+      serv_type = mkOption {
+        type = types.str;
+        default = "ttn";
+        description = "server type";
       };
-
-      portDown = mkOption {
-        type = types.ints.positive;
-        default = 1700;
-        description = "Down port";
+      serv_gw_id = mkOption {
+        type = types.str;
+        description = "gateway name from console";
       };
-
-      enabled = mkOption {
+      serv_gw_key = mkOption {
+        type = types.str;
+        description = "gateway secret key from console";
+      };
+      serv_enabled = mkOption {
         type = types.bool;
         default = true;
         description = "Enabled server";
@@ -58,20 +60,21 @@ in {
       gwid = mkOption {
         type = types.str;
         description = "Gateway ID, usually network interface mac address without colons";
+        example = "0000000000000000";
       };
       latitude = mkOption {
-        type = types.nullOr types.str;
-        default = "10.0";
+        type = types.nullOr types.float;
+        default = 10.0;
         description = "Gateway latitude";
       };
-      longtitude = mkOption {
-        type = types.nullOr types.str;
-        default = "20.0";
-        description = "Gateway longtitude";
+      longitude = mkOption {
+        type = types.nullOr types.float;
+        default = 20.0;
+        description = "Gateway longitude";
       };
       altitude = mkOption {
-        type = types.nullOr types.str;
-        default = "-1.0";
+        type = types.nullOr types.float;
+        default = 1.0;
         description = "Gateway altitude";
       };
       contact_email = mkOption {
@@ -85,8 +88,8 @@ in {
       };
       servers = mkOption {
         type = types.listOf (types.submodule server);
-        default = [ { address = "router.eu.thethings.network"; } ];
         description = "Servers to route packets to";
+        apply = x: map _filter x;
       };
     };
   };
@@ -102,7 +105,7 @@ in {
       # so we create one for them
       preStart = ''
         mkdir -p ${baseDir}
-        cp ${pkgs.packet_forwarder.src}/poly_pkt_fwd/global_conf.json ${baseDir}/
+        cp ${pkgs.packet_forwarder.src}/mp_pkt_fwd/global_conf.json ${baseDir}/
         cp ${mkLocalConf cfg} ${baseDir}/local_conf.json
       '';
 
@@ -110,7 +113,7 @@ in {
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.runtimeShell} -c \"cd ${baseDir};${pkgs.packet_forwarder}/bin/poly_pkt_fwd\"";
+        ExecStart = "${pkgs.runtimeShell} -c \"cd ${baseDir};${pkgs.packet_forwarder}/bin/mp_pkt_fwd\"";
         # WorkingDirectory breaks preStart even with PermissionsStartOnly
         Restart = "always";
         RestartSec = 3;
