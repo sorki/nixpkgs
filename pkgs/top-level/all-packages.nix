@@ -21116,6 +21116,8 @@ with pkgs;
 
   mmark = callPackage ../tools/typesetting/mmark { };
 
+  ttn-gateway-connector = callPackage ../applications/networking/ttn-gateway-connector { };
+  paho-mqtt-embedded = callPackage ../applications/networking/paho-mqtt-embedded { };
   lora_gateway = callPackage ../applications/networking/lora_gateway { };
   packet_forwarder = callPackage ../applications/networking/packet_forwarder { };
 
