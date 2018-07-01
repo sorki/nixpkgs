@@ -62,6 +62,11 @@ in {
         description = "Gateway ID, usually network interface mac address without colons";
         example = "0000000000000000";
       };
+      gpioResetPin = mkOption {
+        type = types.ints.positive;
+        description = "GPIO pin connected to IC880a reset pin";
+        default = 25;
+      };
       latitude = mkOption {
         type = types.nullOr types.float;
         default = 10.0;
@@ -107,6 +112,14 @@ in {
         mkdir -p ${baseDir}
         cp ${pkgs.packet_forwarder.src}/mp_pkt_fwd/global_conf.json ${baseDir}/
         cp ${mkLocalConf cfg} ${baseDir}/local_conf.json
+
+        source ${pkgs.ail_gpio}/ail_gpio
+        PIN=${toString cfg.gpioResetPin}
+        output $PIN
+        hi $PIN
+        sleep 1
+        lo $PIN
+        sleep 1
       '';
 
       restartIfChanged = true;
