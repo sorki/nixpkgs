@@ -14362,10 +14362,15 @@ with pkgs;
     ubootQemuAarch64
     ubootQemuArm
     ubootRaspberryPi
+    ubootRaspberryPi_NoDelays
     ubootRaspberryPi2
+    ubootRaspberryPi2_NoDelays
     ubootRaspberryPi3_32bit
+    ubootRaspberryPi3_32bit_NoDelays
     ubootRaspberryPi3_64bit
+    ubootRaspberryPi3_64bit_NoDelays
     ubootRaspberryPiZero
+    ubootRaspberryPiZero_NoDelays
     ubootSheevaplug
     ubootSopine
     ubootUtilite
