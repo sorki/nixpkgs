@@ -21827,4 +21827,5 @@ with pkgs;
 
   powershell = callPackage ../shells/powershell { };
 
+  ail_gpio = callPackage ../tools/misc/ail_gpio/ail_gpio.nix { };
 }
