@@ -11,6 +11,27 @@ let
     sha256 = "1pqn7c6c06hfygwpcgaraqvqxcjhz99j0rx5psfhj8igy0qvk2dq";
   };
 
+  # Treat 0 timeout as no timeout
+  timeoutPatch = fetchpatch {
+    name = "timeout.patch";
+    url = "https://github.com/u-boot/u-boot/compare/v2018.05...sorki:zerotimeout.patch";
+    sha256 = "0spmrd1hxhqfigv5x8za0vw0da6z68032d5ciq1ay8rp47l8qgar";
+  };
+  fixDelays = x: x.overrideAttrs (old: {
+    extraPatches = [timeoutPatch];
+    postConfigure = ''
+      cat >> .config << EOF
+      CONFIG_BOOTDELAY=0
+      CONFIG_AUTOBOOT_KEYED=y
+      CONFIG_AUTOBOOT_KEYED_CTRLC=y
+      CONFIG_AUTOBOOT_DELAY_STR="delay"
+      CONFIG_AUTOBOOT_STOP_STR="stop"
+      CONFIG_AUTOBOOT_PROMPT="Hit Ctrl-C to abort in %d\n"
+      CONFIG_AUTOBOOT_ENCRYPTION=n
+      EOF
+    '';
+  });
+
   buildUBoot = { filesToInstall
             , installDir ? "$out"
             , defconfig
@@ -197,24 +218,35 @@ in rec {
     extraMeta.platforms = ["armv6l-linux"];
     filesToInstall = ["u-boot.bin"];
   };
+  ubootRaspberryPi_NoDelays = fixDelays ubootRaspberryPi;
 
   ubootRaspberryPi2 = buildUBoot rec {
     defconfig = "rpi_2_defconfig";
     extraMeta.platforms = ["armv7l-linux"];
     filesToInstall = ["u-boot.bin"];
   };
+  ubootRaspberryPi2_NoDelays = fixDelays ubootRaspberryPi2;
 
   ubootRaspberryPi3_32bit = buildUBoot rec {
     defconfig = "rpi_3_32b_defconfig";
     extraMeta.platforms = ["armv7l-linux"];
     filesToInstall = ["u-boot.bin"];
   };
+  ubootRaspberryPi3_32bit_NoDelays = fixDelays ubootRaspberryPi3_32bit;
 
   ubootRaspberryPi3_64bit = buildUBoot rec {
     defconfig = "rpi_3_defconfig";
     extraMeta.platforms = ["aarch64-linux"];
     filesToInstall = ["u-boot.bin"];
   };
+  ubootRaspberryPi3_64bit_NoDelays = fixDelays ubootRaspberryPi3_64bit;
+
+  ubootRaspberryPiZero = buildUBoot rec {
+    defconfig = "rpi_0_w_defconfig";
+    extraMeta.platforms = ["armv6l-linux"];
+    filesToInstall = ["u-boot.bin"];
+  };
+  ubootRaspberryPiZero_NoDelays = fixDelays ubootRaspberryPiZero;
 
   ubootSheevaplug = buildUBoot rec {
     defconfig = "sheevaplug_defconfig";
