@@ -21819,6 +21819,7 @@ with pkgs;
   yrd = callPackage ../tools/networking/yrd { };
 
   powershell = callPackage ../shells/powershell { };
+  pps-tools = callPackage ../development/libraries/pps-tools { };
 
   ttn-gateway-connector = callPackage ../applications/networking/ttn-gateway-connector { };
   paho-mqtt-embedded = callPackage ../applications/networking/paho-mqtt-embedded { };
