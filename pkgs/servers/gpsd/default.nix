@@ -2,6 +2,7 @@
 , ncurses, libX11, libXt, libXpm, libXaw, libXext
 , libusb1, docbook_xml_dtd_412, docbook_xsl, bc
 , libxslt, xmlto, gpsdUser ? "gpsd", gpsdGroup ? "dialout"
+, pps-tools
 , python2Packages
 }:
 
@@ -44,9 +45,16 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     patchShebangs .
     sed -e "s|systemd_dir = .*|systemd_dir = '$out/lib/systemd/system'|" -i SConstruct
-    scons prefix="$out" leapfetch=no gpsd_user=${gpsdUser} gpsd_group=${gpsdGroup} \
-        systemd=yes udevdir="$out/lib/udev" \
-        python_libdir="$out/lib/${python2Packages.python.libPrefix}/site-packages"
+    export CFLAGS="-I${pps-tools.dev}/include"
+    scons \
+      -j $NIX_BUILD_CORES \
+      prefix="$out" \
+      leapfetch=no \
+      gpsd_user=${gpsdUser} \
+      gpsd_group=${gpsdGroup} \
+      systemd=yes \
+      udevdir="$out/lib/udev" \
+      python_libdir="$out/lib/${python2Packages.python.libPrefix}/site-packages"
   '';
 
   checkPhase = ''

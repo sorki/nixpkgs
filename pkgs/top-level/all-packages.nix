@@ -21127,5 +21127,6 @@ with pkgs;
   lora_gateway = callPackage ../applications/networking/lora_gateway { };
   packet_forwarder = callPackage ../applications/networking/packet_forwarder { };
   ail_gpio = callPackage ../tools/misc/ail_gpio/ail_gpio.nix { };
+  pps-tools = callPackage ../development/libraries/pps-tools { };
 
 }
