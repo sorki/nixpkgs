@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.networking.packet_forwarder;
+  # Get a submodule without any embedded metadata:
+  _filter = x: filterAttrs (k: v: k != "_module") x;
   mkLocalConf = conf:
     let
       asJSON = {
@@ -11,7 +13,7 @@ let
           gateway_ID = conf.gwid;
           servers = conf.servers;
           ref_latitude = conf.latitude;
-          ref_longituted = conf.longtitude;
+          ref_longitude = conf.longitude;
           ref_altitude = conf.altitude;
           contact_email = conf.contact_email;
           description = conf.description;
@@ -20,9 +22,6 @@ let
     in pkgs.writeText "local_conf.json" (builtins.toJSON asJSON);
 
   baseDir = "/var/lib/packet_forwarder";
-
-  preStartPF = ''
-  '';
 
   server = { lib, pkgs, ...}: {
     options = {
@@ -64,19 +63,24 @@ in {
         description = "GPIO pin connected to IC880a reset pin";
         default = 25;
       };
+      gpioResetDelay = mkOption {
+        type = types.ints.positive;
+        description = "Sleep for number of seconds during reset toggle";
+        default = 2;
+      };
       latitude = mkOption {
-        type = types.nullOr types.str;
-        default = "10.0";
+        type = types.nullOr types.float;
+        default = null;
         description = "Gateway latitude";
       };
-      longtitude = mkOption {
-        type = types.nullOr types.str;
-        default = "20.0";
-        description = "Gateway longtitude";
+      longitude = mkOption {
+        type = types.nullOr types.float;
+        default = null;
+        description = "Gateway longitude";
       };
       altitude = mkOption {
-        type = types.nullOr types.str;
-        default = "-1.0";
+        type = types.nullOr types.float;
+        default = null;
         description = "Gateway altitude";
       };
       contact_email = mkOption {
@@ -92,6 +96,7 @@ in {
         type = types.listOf (types.submodule server);
         default = [ { address = "router.eu.thethings.network"; } ];
         description = "Servers to route packets to";
+        apply = x: map _filter x;
       };
     };
   };
@@ -112,11 +117,12 @@ in {
 
         source ${pkgs.ail_gpio}/ail_gpio
         PIN=${toString cfg.gpioResetPin}
+        D=${toString cfg.gpioResetDelay}
         output $PIN
         hi $PIN
-        sleep 1
+        sleep $D
         lo $PIN
-        sleep 1
+        sleep $D
       '';
 
       restartIfChanged = true;
