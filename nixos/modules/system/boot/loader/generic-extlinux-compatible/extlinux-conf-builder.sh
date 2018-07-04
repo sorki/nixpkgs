@@ -6,16 +6,17 @@ export PATH=/empty
 for i in @path@; do PATH=$PATH:$i/bin; done
 
 usage() {
-    echo "usage: $0 -t <timeout> -c <path-to-default-configuration> [-d <boot-dir>] [-g <num-generations>]" >&2
+    echo "usage: $0 -t <timeout> -c <path-to-default-configuration> [-n] [-d <boot-dir>] [-g <num-generations>]" >&2
     exit 1
 }
 
 timeout=                # Timeout in centiseconds
+menu=1                  # Enable menu
 default=                # Default configuration
 target=/boot            # Target directory
 numGenerations=0        # Number of other generations to include in the menu
 
-while getopts "t:c:d:g:" opt; do
+while getopts "t:c:n:d:g:" opt; do
     case "$opt" in
         t) # U-Boot interprets '0' as infinite and negative as instant boot
             if [ "$OPTARG" -lt 0 ]; then
@@ -27,6 +28,7 @@ while getopts "t:c:d:g:" opt; do
             fi
             ;;
         c) default="$OPTARG" ;;
+        n) menu=0 ;;
         d) target="$OPTARG" ;;
         g) numGenerations="$OPTARG" ;;
         \?) usage ;;
@@ -110,9 +112,12 @@ cat > $tmpFile <<EOF
 # Change this to e.g. nixos-42 to temporarily boot to an older configuration.
 DEFAULT nixos-default
 
-MENU TITLE ------------------------------------------------------------
 TIMEOUT $timeout
 EOF
+
+if [ "$menu" -gt 0 ]; then
+echo "MENU TITLE ------------------------------------------------------------" >> $tmpFile
+fi
 
 addEntry $default default >> $tmpFile
 
