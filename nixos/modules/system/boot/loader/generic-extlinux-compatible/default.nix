@@ -38,7 +38,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    system.build.installBootLoader = "${builder} -g ${toString cfg.configurationLimit} -t ${timeoutStr} -c";
+    system.build.installBootLoader = "${builder} -g ${toString cfg.configurationLimit} -n nomenupls -t ${timeoutStr} -c";
     system.boot.loader.id = "generic-extlinux-compatible";
   };
 }
