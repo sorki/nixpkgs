@@ -1,0 +1,1 @@
+NIX_PATH=/etc nix-build --cores 0 /etc/nixpkgs/nixos -I nixos-config=gw.nix -A config.system.build.sdImage -o gw
