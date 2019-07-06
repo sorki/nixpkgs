@@ -379,6 +379,7 @@
   ./services/mail/rss2email.nix
   ./services/mail/rmilter.nix
   ./services/mail/roundcube.nix
+  ./services/mail/sympa.nix
   ./services/mail/nullmailer.nix
   ./services/misc/airsonic.nix
   ./services/misc/apache-kafka.nix
