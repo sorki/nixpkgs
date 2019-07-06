@@ -24331,4 +24331,6 @@ in
 
   kube3d =  callPackage ../applications/networking/cluster/kube3d {};
 
+  sympa = callPackage ../servers/mail/sympa { };
+
 }
