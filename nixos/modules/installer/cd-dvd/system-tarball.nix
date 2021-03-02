@@ -35,6 +35,21 @@ in
       '';
     };
 
+    tarball.compression = {
+      enable = mkEnableOption "tarball compression";
+      command = mkOption {
+        type = types.str;
+        default = "pixz";
+      };
+      extension = mkOption {
+        type = types.str;
+        default = ".xz";
+      };
+      extraInputs = mkOption {
+        type = types.listOf types.path;
+        default = [ pixz ];
+      };
+    };
   };
 
   config = {
@@ -71,6 +86,11 @@ in
       inherit (pkgs) stdenv closureInfo pixz;
 
       inherit (config.tarball) contents storeContents;
+
+      # compression args
+      compressCommand = config.tarball.compression.command;
+      compressionExtension = config.tarball.compression.extension;
+      extraInputs = config.tarball.compression.extraInputs;
     };
 
     boot.postBootCommands =
