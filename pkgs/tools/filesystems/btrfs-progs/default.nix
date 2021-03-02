@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
 
   # for python cross-compiling
   _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
+  makeFlags = [ "PYTHON_BINDINGS=0" ];
 
   # gcc bug with -O1 on ARM with gcc 4.8
   # This should be fine on all platforms so apply universally
