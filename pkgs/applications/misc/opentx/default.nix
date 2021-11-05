@@ -5,17 +5,15 @@
 }:
 
 mkDerivation rec {
-  pname = "opentx";
-  version = "2.3.14";
+  pname = "edgetx";
+  version = "2.5.0";
 
   src = fetchFromGitHub {
-    owner = "opentx";
-    repo = "opentx";
-    # 2.3.14 release tag points to the commit before the one that updates the
-    # version number.
-    # rev = "release/${version}";
-    rev = "1e09791a1e2fe2a0ca9835019d634a4c6a4fa3bf";
-    sha256 = "0mhzp1j6nmqvkjxg8lv8xa637m1lavdsak30mdlq0g25dhwg6k92";
+    owner = "edgetx";
+    repo = "edgetx";
+    rev = "v2.5.0";
+    sha256 = "1jbi5r2adinczgyi89cxm0rg43shklz90r0z99vz3p5504i2bk2m";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake gcc-arm-embedded python3Packages.pillow ];
@@ -37,13 +35,13 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "OpenTX Companion transmitter support software";
+    description = "EdgeTX Companion transmitter support software";
     longDescription = ''
-      OpenTX Companion is used for many different tasks like loading OpenTX
+      EdgeTX Companion is used for many different tasks like loading EdgeTX
       firmware to the radio, backing up model settings, editing settings and
       running radio simulators.
     '';
-    homepage = "https://www.open-tx.org/";
+    homepage = "https://www.edgetx.org/";
     license = licenses.gpl2Only;
     platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
     maintainers = with maintainers; [ elitak lopsided98 ];
